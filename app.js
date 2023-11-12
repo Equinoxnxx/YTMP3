@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 3000;
 //თემფლეთ ენჯინი
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-
 //ჰტმლ გაპარსვა პოსტის მოთხოვნის
 app.use(
   express.urlencoded({
@@ -41,7 +40,7 @@ app.post("/convert-mp3", async (req, res) => {
     })
     
     const fetchResponse = await fetchAPI.json();
-
+    console.log(fetchResponse)
     if(fetchResponse.status === "ok")
         return res.render("index", {success : true, song_title: fetchResponse.title, song_link : fetchResponse.link})
     else
@@ -53,3 +52,4 @@ app.post("/convert-mp3", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`დეიწყო პორტზე ${PORT}`);
 });
+
