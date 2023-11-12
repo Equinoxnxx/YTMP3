@@ -7,12 +7,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <title>Lukinio's YTMP3</title>
   </head>
   <body>
     <div class="top-container">
-      <form action="/convert-mp3" method="POST" id="form">
+      <form action="submit" method="POST" id="form">
         <h1><i class="fa-brands fa-youtube"></i>Youtube to MP3</h1>
         <h4>Enter the video ID</h4>
         <div>
@@ -41,3 +41,27 @@
     </div>
   </body>
 </html>
+<script>
+document.getElementById('form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const videoID = document.querySelector('input[name="videoID"]').value;
+
+  fetch('/convert-mp3', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `videoID=${encodeURIComponent(videoID)}`,
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      console.log("hi")
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+
+</script>
